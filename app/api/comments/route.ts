@@ -20,10 +20,10 @@ const parentId = body.parentId ? Number(body.parentId) : null;
 
     if (!name || !comment || !postSlug) return NextResponse.json({ error: "Name, comment and post are required" }, { status: 400 });
     if (name.length > 80 || comment.length > 2000) return NextResponse.json({ error: "Comment is too long" }, { status: 400 });
-await sql`INSERT INTO comments (post_slug, name, comment, parent_id)
-VALUES (${postSlug}, ${name}, ${comment}, ${parentId})`;
+await sql`INSERT INTO comments (post_slug, name, comment, parent_id, approved)
+VALUES (${postSlug}, ${name}, ${comment}, ${parentId}, true)`;
 
-    return NextResponse.json({ success: true, message: "Comment submitted for approval" });
+    return NextResponse.json({ success: true, message: "Comment posted."});
   } catch {
     return NextResponse.json({ error: "Unable to submit comment" }, { status: 500 });
   }
