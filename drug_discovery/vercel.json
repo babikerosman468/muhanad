@@ -4,9 +4,25 @@
     {
       "src": "dashboard.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "pipeline.pdf",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "optogenetics.pdf",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/pipeline\\.pdf",
+      "dest": "/pipeline.pdf"
+    },
+    {
+      "src": "/optogenetics\\.pdf",
+      "dest": "/optogenetics.pdf"
+    },
     {
       "src": "/(.*)",
       "dest": "/dashboard.html"
