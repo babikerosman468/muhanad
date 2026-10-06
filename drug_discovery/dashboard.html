@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Algal Phototaxis to Precision Therapy</title>
+<style>
+  :root{
+    --maroon:#800000; --steel:#4682B4; --steel-dark:#2f5f85;
+    --slate:#6A5ACD; --gold:#C9A227; --ink:#1c1c1e; --muted:#5b6472;
+    --line:#d9dee6; --bg:#f7f8fb; --card:#ffffff; --radius:14px;
+    --shadow:0 2px 4px rgba(16,24,40,.04),0 10px 28px rgba(16,24,40,.07);
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:
+      radial-gradient(1200px 600px at 10% -10%,#eef3fa 0%,transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%,#f6f0f0 0%,transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    line-height:1.65;font-size:16.5px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
+  header.hero{background:linear-gradient(140deg,#4a0d0d 0%,var(--maroon) 45%,#6d1a1a 100%);
+    color:#fff;padding:64px 0 56px;position:relative;overflow:hidden;}
+  header.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(600px 300px at 85% 20%,rgba(70,130,180,.35),transparent 70%),
+      radial-gradient(500px 260px at 10% 90%,rgba(106,90,205,.30),transparent 70%);}
+  header.hero .wrap{position:relative;z-index:1;}
+  .kicker{text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;
+    font-weight:700;color:#f0c9c9;margin-bottom:14px;}
+  h1.title{font-size:clamp(1.75rem,4.4vw,2.9rem);line-height:1.18;
+    margin:0 0 14px;font-weight:800;letter-spacing:-.02em;}
+  .subtitle{font-size:clamp(1.05rem,2.2vw,1.35rem);color:#cfe2f3;margin:0 0 6px;font-weight:600;}
+  .tagline{color:#e6d9f5;font-size:.95rem;margin:0 0 26px;}
+  .hero-chain{display:inline-block;background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.22);border-radius:999px;
+    padding:9px 20px;font-size:.85rem;letter-spacing:.03em;color:#fff;}
+  .author{margin-top:30px;padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.18);font-size:.95rem;}
+  .author strong{display:block;font-size:1.05rem;}
+  .author span{color:#e2cfcf;font-size:.87rem;}
+  nav.toc{position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);}
+  nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;
+    padding-top:10px;padding-bottom:10px;}
+  nav.toc a{flex:0 0 auto;font-size:.78rem;font-weight:600;text-decoration:none;
+    color:var(--muted);padding:6px 12px;border-radius:999px;
+    border:1px solid transparent;white-space:nowrap;transition:.18s;}
+  nav.toc a:hover{color:var(--maroon);background:#fdf2f2;border-color:#f2d9d9;}
+  main{padding:46px 0 80px;}
+  section{margin-bottom:58px;scroll-margin-top:70px;}
+  h2.sec{font-size:clamp(1.25rem,2.6vw,1.65rem);color:var(--maroon);
+    margin:0 0 8px;font-weight:800;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:12px;}
+  h2.sec .num{flex:0 0 auto;width:34px;height:34px;display:grid;place-items:center;
+    background:var(--maroon);color:#fff;border-radius:10px;font-size:.9rem;font-weight:800;}
+  .sec-lead{color:var(--muted);margin:0 0 22px;font-size:.98rem;}
+  h3{color:var(--steel-dark);font-size:1.05rem;margin:26px 0 8px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px;}
+  .box{border-radius:var(--radius);padding:18px 22px;margin:18px 0;border:1px solid;}
+  .box .box-title{font-weight:800;font-size:.82rem;text-transform:uppercase;
+    letter-spacing:.10em;margin-bottom:8px;display:block;}
+  .box p:last-child{margin-bottom:0;}
+  .box.maroon{background:#fdf4f4;border-color:#eccfcf;}
+  .box.maroon .box-title{color:var(--maroon);}
+  .box.steel{background:#f2f7fc;border-color:#cfe0ef;}
+  .box.steel .box-title{color:var(--steel-dark);}
+  .box.slate{background:#f5f3fd;border-color:#d9d2f2;}
+  .box.slate .box-title{color:var(--slate);}
+  .box.gold{background:#fdf9ec;border-color:#ecdcae;}
+  .box.gold .box-title{color:#8a6d10;}
+  .formula{font-family:var(--mono);font-size:.84rem;background:#fff;
+    border:1px dashed var(--line);border-radius:10px;padding:14px 18px;
+    margin:16px 0;overflow-x:auto;white-space:nowrap;color:var(--ink);}
+  .formula.center{text-align:center;}
+  .formula strong{color:var(--maroon);}
+  .strip{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:22px 0 28px;}
+  .strip .chip{background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:9px 14px;font-size:.8rem;font-weight:700;color:var(--steel-dark);
+    box-shadow:0 1px 2px rgba(16,24,40,.04);}
+  .strip .arrow{color:var(--maroon);font-weight:800;font-size:.9rem;}
+  .timeline{position:relative;}
+  .stage{position:relative;display:grid;grid-template-columns:56px 1fr;gap:18px;
+    padding-bottom:34px;}
+  .stage:last-child{padding-bottom:0;}
+  .stage .rail{position:relative;display:flex;flex-direction:column;align-items:center;}
+  .stage .dot{width:44px;height:44px;flex:0 0 auto;border-radius:50%;
+    display:grid;place-items:center;font-weight:800;font-size:.95rem;color:#fff;
+    background:linear-gradient(150deg,var(--steel),var(--steel-dark));
+    box-shadow:0 4px 12px rgba(70,130,180,.32);z-index:1;}
+  .stage .line{flex:1 1 auto;width:3px;
+    background:linear-gradient(180deg,#cfe0ef,#e6ecf3);
+    border-radius:2px;margin-top:6px;min-height:20px;}
+  .stage:last-child .line{display:none;}
+  .stage .panel{background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);}
+  .stage h3{margin:0 0 6px;font-size:1.05rem;color:var(--maroon);
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;}
+  .stage h3 .phase-tag{font-size:.68rem;font-weight:800;letter-spacing:.10em;
+    text-transform:uppercase;color:var(--steel-dark);background:#eef5fb;
+    border:1px solid #d5e5f2;border-radius:999px;padding:3px 10px;}
+  .stage .goal{font-size:.9rem;color:var(--muted);margin:0 0 14px;}
+  ul.clean{margin:0;padding:0;list-style:none;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:7px 20px;}
+  ul.clean li{position:relative;padding-left:20px;font-size:.9rem;color:#2b3340;}
+  ul.clean li::before{content:"";position:absolute;left:2px;top:.62em;
+    width:7px;height:7px;border-radius:2px;background:var(--steel);
+    transform:rotate(45deg);}
+  ul.clean.maroon li::before{background:var(--maroon);}
+  ul.clean.slate li::before{background:var(--slate);}
+  .table-wrap{overflow-x:auto;margin:18px 0;}
+  table{width:100%;border-collapse:collapse;font-size:.87rem;background:#fff;
+    border-radius:12px;overflow:hidden;box-shadow:var(--shadow);min-width:520px;}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+  thead th{background:#f2f6fa;color:var(--steel-dark);font-size:.74rem;
+    text-transform:uppercase;letter-spacing:.10em;font-weight:800;}
+  tbody tr:last-child td{border-bottom:none;}
+  td strong{color:var(--maroon);}
+  .layer{background:linear-gradient(150deg,#f5f3fd,#fbfaff);
+    border:1px solid #ded7f5;border-radius:var(--radius);padding:26px 22px;margin:22px 0;}
+  .layer-stack{display:flex;flex-direction:column;align-items:center;}
+  .layer-node{width:min(560px,100%);text-align:center;background:#fff;
+    border:1px solid #d9d2f2;border-left:5px solid var(--slate);
+    border-radius:10px;padding:12px 18px;font-weight:700;font-size:.9rem;
+    color:#2f2a5c;}
+  .layer-node.hl{border-left-color:var(--maroon);color:var(--maroon);
+    background:#fdf6f6;border-color:#eccfcf;}
+  .layer-node.final{border-left-color:var(--gold);color:#7a5f0c;
+    background:#fdf9ec;border-color:#ecdcae;}
+  .layer-arrow{color:var(--slate);font-size:1.1rem;padding:6px 0;font-weight:800;}
+  .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:18px;margin:18px 0;}
+  .split .box{margin:0;}
+  .final{background:linear-gradient(140deg,#4a0d0d,var(--maroon) 55%,#6d1a1a);
+    color:#fff;border-radius:18px;padding:46px 32px;text-align:center;
+    box-shadow:0 20px 50px rgba(128,0,0,.22);}
+  .final h2{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-weight:800;}
+  .final .chain{font-size:clamp(.85rem,1.9vw,1.05rem);color:#cfe2f3;
+    margin:14px 0 26px;font-weight:600;line-height:1.9;}
+  .final .chain span{color:#f0c9c9;padding:0 6px;}
+  .final-lines{display:inline-block;text-align:left;
+    border-top:1px solid rgba(255,255,255,.22);padding-top:22px;
+    font-size:.98rem;line-height:2.05;list-style:none;}
+  .final-lines li::before{content:"→ ";color:var(--gold);font-weight:800;}
+  footer{text-align:center;padding:34px 20px 50px;color:var(--muted);
+    font-size:.82rem;border-top:1px solid var(--line);margin-top:20px;}
+  @media(max-width:620px){
+    .stage{grid-template-columns:42px 1fr;gap:12px;}
+    .stage .dot{width:36px;height:36px;font-size:.82rem;}
+    .stage .panel{padding:16px 16px;}
+    .card{padding:18px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Nature → Discovery → Technology → Medicine</div>
+    <h1 class="title">From Algal Phototaxis to Precision Therapy</h1>
+    <p class="subtitle">The Natural Origin of Optogenetics</p>
+    <p class="tagline">A remarkable example of nature-inspired biomedical innovation — and the full drug discovery pipeline it can inform.</p>
+    <div class="hero-chain">Algae → Channelrhodopsin → Optogenetics → Causal Neuroscience → Therapy</div>
+    <div class="author">
+      <strong>Prof. Babiker Malik Osman</strong>
+      <span>Biomedical Data Scientist • System Biologist</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#origin">Origin</a>
+    <a href="#bridge">The Bridge</a>
+    <a href="#pipeline">Pipeline Overview</a>
+    <a href="#stages">Stage by Stage</a>
+    <a href="#opto-layer">Optogenetics Layer</a>
+    <a href="#systems">Systems Pharmacology</a>
+    <a href="#final">Final Message</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="origin">
+  <h2 class="sec"><span class="num">1</span> Where Did the Discovery Come From?</h2>
+  <p class="sec-lead">The story begins not in a hospital or laboratory, but in a microscopic green alga.</p>
+  <div class="card">
+    <p>The organism is <strong><em>Chlamydomonas reinhardtii</em></strong>. It possesses an
+    <strong>eyespot</strong> (stigma) that detects the direction and intensity of light.
+    That light signal regulates its swimming behaviour — a phenomenon known as
+    <strong>phototaxis</strong>.</p>
+  </div>
+  <div class="box maroon">
+    <span class="box-title">Nature's Original Solution</span>
+    <p>The alga converts a physical signal — <strong>light</strong> — into an electrical and ionic signal that changes cellular behaviour.</p>
+  </div>
+  <div class="formula center"><strong>Light</strong> → Photoreception → Ion movement → Electrical signal → <strong>Phototaxis</strong></div>
+  <h3>Channelrhodopsin — a light-gated ion channel</h3>
+  <p>The crucial molecular component is <strong>channelrhodopsin</strong>. When appropriate light reaches the protein, the channel opens and permits ions to move across the cell membrane.</p>
+  <div class="box steel">
+    <span class="box-title">Core Concept</span>
+    <p><strong>Channelrhodopsin = a light-controlled ion channel.</strong></p>
+  </div>
+  <div class="formula center">Light → Channel opens → Ion flow → Membrane potential changes</div>
+</section>
+
+<section id="bridge">
+  <h2 class="sec"><span class="num">2</span> From Nature to Neuroscience</h2>
+  <p class="sec-lead">The extraordinary conceptual step: take a naturally evolved light sensor and put it into neurons.</p>
+  <div class="card">
+    <p>Hegemann and Nagel's work on microbial rhodopsins and channelrhodopsins provided the molecular foundation. Karl Deisseroth and colleagues then demonstrated that such light-sensitive proteins could be expressed in selected neurons and used to control their activity with light.</p>
+  </div>
+  <div class="formula center">Algal light sensor → Light-controlled neuron</div>
+  <div class="box slate">
+    <span class="box-title">The Optogenetic Principle</span>
+    <p class="formula" style="margin:0;border:none;background:transparent;padding:0;">Gene → Channelrhodopsin → Light → Ion flow → Neural activity</p>
+  </div>
+  <p>The importance is not simply that neurons can be illuminated. The deeper achievement is the ability to manipulate selected cells with <strong>high temporal precision</strong> and ask:</p>
+  <div class="box maroon" style="text-align:center;font-size:1.05rem;font-weight:700;">“What happens if this particular cell or circuit is activated?”</div>
+  <p>This changes neuroscience from predominantly observing associations to experimentally testing <strong>causal mechanisms</strong>.</p>
+</section>
+
+<section id="pipeline">
+  <h2 class="sec"><span class="num">3</span> The Drug Discovery Pipeline</h2>
+  <p class="sec-lead">Optogenetics does not replace conventional drug discovery. Rather, it provides a powerful <strong>causal validation layer</strong>, particularly for neurological and circuit-level targets.</p>
+  <div class="box steel">
+    <span class="box-title">Central Translational Principle</span>
+    <p class="formula" style="margin:0;border:none;background:transparent;padding:0;">Optogenetic Causal Evidence → Target Validation → Drug Discovery → Clinical Translation</p>
+  </div>
+  <div class="strip">
+    <span class="chip">Disease Biology</span><span class="arrow">→</span>
+    <span class="chip">Target Identification</span><span class="arrow">→</span>
+    <span class="chip">Target Validation</span><span class="arrow">→</span>
+    <span class="chip">Hit Discovery</span><span class="arrow">→</span>
+    <span class="chip">Lead Optimization</span><span class="arrow">→</span>
+    <span class="chip">Preclinical</span><span class="arrow">→</span>
+    <span class="chip">Clinical I–III</span><span class="arrow">→</span>
+    <span class="chip">Regulatory Approval</span><span class="arrow">→</span>
+    <span class="chip">Post-Market Surveillance</span>
+  </div>
+</section>
+
+<section id="stages">
+  <h2 class="sec"><span class="num">4</span> Stage by Stage</h2>
+  <p class="sec-lead">Nine sequential stages, from disease understanding to real-world monitoring.</p>
+  <div class="timeline">
+
+    <div class="stage"><div class="rail"><div class="dot">1</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Disease Understanding <span class="phase-tag">Foundation</span></h3>
+        <p class="goal">Drug discovery begins with understanding the biological basis of disease.</p>
+        <ul class="clean">
+          <li>Disease phenotype</li><li>Affected cells and tissues</li>
+          <li>Molecular pathways</li><li>Neuronal circuits</li>
+          <li>Genetic &amp; environmental factors</li>
+          <li>Biomarkers and endpoints</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">2</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Target Identification <span class="phase-tag">Selection</span></h3>
+        <p class="goal">Identify a biological component whose modulation could produce a beneficial effect.</p>
+        <ul class="clean">
+          <li>Receptor</li><li>Ion channel</li><li>Enzyme</li>
+          <li>Transporter</li><li>Signalling protein</li>
+          <li>Transcriptional regulator</li>
+          <li>Neuronal population</li><li>Biological pathway</li>
+        </ul>
+        <div class="formula" style="margin-bottom:0;">Disease Mechanism → <strong>Candidate Target</strong></div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">3</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Target Validation <span class="phase-tag">Causal Proof</span></h3>
+        <p class="goal">Does manipulating this target actually cause the desired biological effect?</p>
+        <div class="formula">Light → Opsin Activation → Specific Cell Population → Circuit Response → Behavioural Phenotype</div>
+        <div class="box maroon" style="margin-bottom:0;">
+          <span class="box-title">Causal Target Validation</span>
+          <p>If this cell or pathway is activated or inhibited, does the disease phenotype change?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">4</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Hit Discovery <span class="phase-tag">Screening</span></h3>
+        <p class="goal">Search for molecules capable of modifying the validated target's activity.</p>
+        <ul class="clean">
+          <li>High-throughput screening (HTS)</li>
+          <li>Virtual screening</li>
+          <li>Structure-based drug discovery</li>
+          <li>Fragment-based drug discovery</li>
+          <li>Phenotypic screening</li>
+          <li>Computational molecular design</li>
+        </ul>
+        <div class="formula">Target → Screening → <strong>Hit</strong></div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">5</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Lead Optimization <span class="phase-tag">Medicinal Chemistry</span></h3>
+        <p class="goal">A promising hit is rarely suitable as a medicine in its initial form.</p>
+        <ul class="clean">
+          <li>Potency</li><li>Selectivity</li><li>Efficacy</li>
+          <li>Chemical stability</li><li>Solubility</li>
+          <li>Absorption</li><li>Distribution</li>
+          <li>Metabolism</li><li>Excretion</li>
+          <li>Pharmacokinetics (PK)</li>
+          <li>Pharmacodynamics (PD)</li><li>Toxicity</li>
+        </ul>
+        <div class="formula" style="margin-bottom:0;">Hit → Lead → <strong>Optimized Candidate</strong></div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">6</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Preclinical Development <span class="phase-tag">Before Humans</span></h3>
+        <p class="goal">Evaluate the optimized candidate before human clinical trials.</p>
+        <ul class="clean">
+          <li>Pharmacology</li><li>Pharmacokinetics</li>
+          <li>Pharmacodynamics</li><li>Dose–response relationships</li>
+          <li>Efficacy models</li><li>Safety pharmacology</li>
+          <li>Toxicology</li><li>Formulation</li>
+        </ul>
+        <div class="formula" style="margin-bottom:0;">Dose → Exposure → Target Engagement → Biological Response → <strong>Therapeutic Effect</strong></div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">7</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Clinical Development <span class="phase-tag">Phases I–III</span></h3>
+        <p class="goal">A successful preclinical candidate progresses to human clinical development.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Phase</th><th>Primary Objectives</th><th>Core Question</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Phase I</strong></td><td>Initial safety; tolerability; pharmacokinetics; dose escalation</td><td>Is it safe?</td></tr>
+              <tr><td><strong>Phase II</strong></td><td>Preliminary efficacy; dose selection; therapeutic response</td><td>Does it work?</td></tr>
+              <tr><td><strong>Phase III</strong></td><td>Confirmatory efficacy; broader safety; clinical outcomes</td><td>Does it work safely?</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">8</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Regulatory Approval <span class="phase-tag">Benefit–Risk</span></h3>
+        <p class="goal">If the benefit–risk profile is acceptable, the sponsor submits the full development package.</p>
+        <div class="formula">Quality + Nonclinical Evidence + Clinical Evidence</div>
+        <div class="formula" style="margin-bottom:0;">Discovery → Validation → Development → <strong>Clinical Evidence</strong></div>
+      </div>
+    </div>
+
+    <div class="stage"><div class="rail"><div class="dot">9</div><div class="line"></div></div>
+      <div class="panel">
+        <h3>Post-Market Surveillance <span class="phase-tag">Phase IV</span></h3>
+        <p class="goal">Drug development does not end with approval.</p>
+        <ul class="clean maroon">
+          <li>Rare adverse effects</li><li>Long-term safety</li>
+          <li>Drug interactions</li>
+          <li>Effectiveness in broader populations</li>
+          <li>New indications</li><li>Real-world outcomes</li>
+        </ul>
+        <div class="formula" style="margin-bottom:0;">Drug Discovery → Drug Development → <strong>Drug Monitoring</strong></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="opto-layer">
+  <h2 class="sec"><span class="num">5</span> Optogenetics as a Target-Validation Layer</h2>
+  <p class="sec-lead">Where exactly does optogenetics sit inside the pipeline?</p>
+  <div class="layer">
+    <div class="layer-stack">
+      <div class="layer-node">Natural Biological Mechanism</div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer-node">Optogenetic Manipulation</div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer-node">Cellular / Circuit Causality</div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer-node hl">Target Validation</div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer-node">Pharmacological Target</div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer-node">Drug Discovery</div>
+      <div class="layer-arrow">▼</div>
+      <div class="layer-node final">Clinical Therapy</div>
+    </div>
+  </div>
+  <div class="box slate">
+    <span class="box-title">Position in the Translational Space</span>
+    <p class="formula" style="margin:0;border:none;background:transparent;padding:0;">Basic Neuroscience ⟷ Translational Pharmacology</p>
+  </div>
+  <p>Optogenetics can provide experimental evidence that a particular cellular population, circuit, receptor, channel, or pathway is <strong>causally involved</strong> in a phenotype.</p>
+  <h3>From Optogenetic Causality to Pharmacology</h3>
+  <div class="formula center">Light → Opsin → Ion Flow → Cell Activity → Circuit → <strong>Phenotype</strong></div>
+  <div class="formula center">Phenotype → Validated Target → Drug → <strong>Therapy</strong></div>
+  <div class="split">
+    <div class="box maroon">
+      <span class="box-title">Direct Optogenetic Therapy</span>
+      <p>Gene delivery → Opsin expression → Optical stimulation → Restored cellular function</p>
+      <p>One important area of investigation is the restoration of visual function in retinal degeneration.</p>
+    </div>
+    <div class="box steel">
+      <span class="box-title">Pharmacological Translation</span>
+      <p>Optogenetics establishes that a cell, circuit, receptor, channel, or pathway is causally involved in a biological effect.</p>
+      <p>Causal evidence → Target validation → Drug discovery → Pharmacological modulation → Therapy</p>
+    </div>
+  </div>
+</section>
+
+<section id="systems">
+  <h2 class="sec"><span class="num">6</span> Systems Pharmacology Perspective</h2>
+  <p class="sec-lead">The ultimate objective is not merely to discover a molecule — it is to understand the complete biological system.</p>
+  <div class="formula center" style="white-space:normal;">Drug → Target → Pathway → Cell → Circuit → Organism → <strong>Clinical Outcome</strong></div>
+  <p>The drug becomes one component of a larger biological network. The fundamental contribution of optogenetics is therefore not simply “using light” — it provides an experimental bridge between manipulation and causality.</p>
+  <div class="formula center">Manipulation → Causality → Target Validation → <strong>Precision Medicine</strong></div>
+  <div class="box gold">
+    <span class="box-title">The Translational Principle</span>
+    <p><strong>Optogenetics can reveal causality; pharmacology can translate that causality into a controllable therapeutic intervention.</strong></p>
+  </div>
+</section>
+
+<section id="final">
+  <div class="final">
+    <h2>Nature → Discovery → Technology → Medicine</h2>
+    <p class="chain">Algae <span>→</span> Channelrhodopsin <span>→</span> Optogenetics <span>→</span> Precision Therapy</p>
+    <ul class="final-lines">
+      <li>Nature had already invented the mechanism.</li>
+      <li>The scientist discovered it.</li>
+      <li>Technology redirected it.</li>
+      <li>Causal biology validated it.</li>
+      <li>Pharmacology can translate it.</li>
+      <li>Medicine can ultimately apply it.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Prof. Babiker Malik Osman</strong> — Biomedical Data Scientist • System Biologist<br>
+    From Algal Phototaxis to Precision Therapy · The Natural Origin of Optogenetics
+  </div>
+</footer>
+
+</body>
+</html>
