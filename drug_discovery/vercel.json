@@ -12,6 +12,10 @@
     {
       "src": "optogenetics.pdf",
       "use": "@vercel/static"
+    },
+    {
+      "src": "12.jpg",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
