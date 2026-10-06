@@ -28,6 +28,10 @@
       "dest": "/optogenetics.pdf"
     },
     {
+      "src": "/12\\.jpg",
+      "dest": "/12.jpg"
+    },
+    {
       "src": "/(.*)",
       "dest": "/dashboard.html"
     }
