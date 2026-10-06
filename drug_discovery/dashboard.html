@@ -89,7 +89,23 @@ nav.toc a:hover{
     border-color:var(--steel);
     transform:translateY(-2px);
 }
-  main{padding:46px 0 80px;}
+
+.profile-photo{
+    display:flex;
+    justify-content:center;
+    margin:24px 0 18px;
+}
+
+.profile-photo img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid var(--maroon);
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+}
+
+main{padding:46px 0 80px;}
   section{margin-bottom:58px;scroll-margin-top:70px;}
   h2.sec{font-size:clamp(1.25rem,2.6vw,1.65rem);color:var(--maroon);
     margin:0 0 8px;font-weight:800;letter-spacing:-.01em;
@@ -204,6 +220,9 @@ nav.toc a:hover{
     <p class="subtitle">The Natural Origin of Optogenetics</p>
     <p class="tagline">A remarkable example of nature-inspired biomedical innovation — and the full drug discovery pipeline it can inform.</p>
     <div class="hero-chain">Algae → Channelrhodopsin → Optogenetics → Causal Neuroscience → Therapy</div>
+    <div class="profile-photo">
+    <img src="12.jpg" alt="Prof. Babiker Malik Osman">
+</div>
     <div class="author">
       <strong>Prof. Babiker Malik Osman</strong>
       <span>Biomedical Data Scientist • System Biologist</span>
