@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sql } from "../../../lib/db";
+import { getSql } from "../../../lib/db";
 
 const recent = new Map<string, number>();
 const WINDOW_MS = 60_000;
@@ -7,6 +7,7 @@ const MAX_PER_WINDOW = 5;
 
 export async function GET(request: Request) {
   try {
+    const sql = getSql();
     const { searchParams } = new URL(request.url);
     const postSlug = searchParams.get("post");
     if (!postSlug) {
@@ -28,6 +29,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const sql = getSql();
     // --- rate limit ---
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
