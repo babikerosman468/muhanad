@@ -6,11 +6,19 @@
       "use": "@vercel/static"
     },
     {
+      "src": "highway.pdf",
+      "use": "@vercel/static"
+    },
+    {
       "src": "pipeline.pdf",
       "use": "@vercel/static"
     },
     {
       "src": "optogenetics.pdf",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "fig.pdf",
       "use": "@vercel/static"
     },
     {
@@ -20,12 +28,20 @@
   ],
   "routes": [
     {
+      "src": "/highway\\.pdf",
+      "dest": "/highway.pdf"
+    },
+    {
       "src": "/pipeline\\.pdf",
       "dest": "/pipeline.pdf"
     },
     {
       "src": "/optogenetics\\.pdf",
       "dest": "/optogenetics.pdf"
+    },
+    {
+      "src": "/fig\\.pdf",
+      "dest": "/fig.pdf"
     },
     {
       "src": "/12\\.jpg",
