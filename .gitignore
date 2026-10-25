@@ -1,0 +1,6 @@
+.vercel
+.env*
+
+# Google OAuth credentials
+drug_discovery/token.json
+drug_discovery/1000625504
