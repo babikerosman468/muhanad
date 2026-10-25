@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
-
+import { marked } from "marked";
+import Comments from "../Comments";
 type Post = {
   title: string;
   date: string;
@@ -76,12 +77,16 @@ export default async function BlogPost({
         <h1>{post.title}</h1>
         <p className="excerpt">{post.excerpt}</p>
 
-        <div className="content">
-          {post.content.split("\n\n").map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
+<div
+  className="content"
+  dangerouslySetInnerHTML={{
+    __html: marked.parse(post.content) as string,
+  }}
+/>
+
       </article>
+
+      <Comments postSlug={slug} />
 
       <footer>
         <strong>MUHANAD</strong>
