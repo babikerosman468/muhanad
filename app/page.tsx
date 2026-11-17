@@ -48,6 +48,7 @@ export default function Home() {
           <a href="#family">Family</a>
           <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
+	  <a href="#links">Links</a>
         </nav>
       </header>
 
@@ -125,6 +126,47 @@ export default function Home() {
         </p>
       </section>
 
+      <section id="links" className="section">
+        <h2>Important Links</h2>
+
+        <div className="posts">
+          <article className="post">
+            <h3>Drug Discovery Blog</h3>
+            <a
+              href="https://drug2026.blogspot.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visit Blog →
+            </a>
+          </article>
+
+          <article className="post">
+            <h3>Drug Discovery Platform</h3>
+            <a
+              href="https://drug-discovery-wine.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Platform →
+            </a>
+          </article>
+
+          <article className="post">
+            <h3>Administrator Login</h3>
+            <a href="/admin/login">
+              Administrator Access →
+            </a>
+          </article>
+
+          <article className="post">
+            <h3>Comment Administration</h3>
+            <a href="/admin/comments">
+              Manage Comments →
+            </a>
+          </article>
+        </div>
+      </section>
       <footer>
         <strong>MUHANAD</strong>
         <span>Personal Blog • Life • Family • Future</span>
