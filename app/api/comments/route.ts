@@ -75,10 +75,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Too many links" }, { status: 400 });
     }
 
-    // --- insert (moderation OFF by default here; change to `false` to enable) ---
+    // --- insert (comments are submitted as pending moderation) ---
     await sql`
       INSERT INTO comments (post_slug, name, comment, parent_id, approved)
-      VALUES (${postSlug}, ${name}, ${comment}, ${parentId}, true)
+      VALUES (${postSlug}, ${name}, ${comment}, ${parentId}, false)
     `;
 
     return NextResponse.json({ success: true, message: "Comment posted." });

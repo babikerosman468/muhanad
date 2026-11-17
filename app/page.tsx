@@ -77,6 +77,24 @@ export default function Home() {
         </div>
       </section>
 
+            <section id="medical-records" className="section">
+        <h2>Medical Records</h2>
+        <p>
+          Medical documentation and an AI-assisted summary of Muhanad's
+          medical history, for review by healthcare professionals.
+        </p>
+        <p>
+          <a href="/all.pdf" target="_blank" rel="noopener noreferrer">
+            📄 Complete Medical Records (PDF) →
+          </a>
+        </p>
+        <p>
+          <a href="/aisummary.pdf" target="_blank" rel="noopener noreferrer">
+            🧠 AI Medical Summary (PDF) →
+          </a>
+        </p>
+      </section>
+
       <section id="about" className="section">
         <h2>About</h2>
         <p>
