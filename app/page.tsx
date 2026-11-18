@@ -49,6 +49,7 @@ export default function Home() {
           <a href="#gallery">Gallery</a>
           <a href="#contact">Contact</a>
 	  <a href="#links">Links</a>
+	  <a href="/group">Group</a>
         </nav>
       </header>
 
@@ -141,6 +142,15 @@ export default function Home() {
 
         <div className="posts">
           <article className="post">
+          <article className="post">
+            <h3>Family & Community Group</h3>
+            <p>
+              Share discussions, messages and family updates.
+            </p>
+            <a href="/group">
+              Open Group Board →
+            </a>
+          </article>
             <h3>Drug Discovery Blog</h3>
             <a
               href="https://drug2026.blogspot.com/"
