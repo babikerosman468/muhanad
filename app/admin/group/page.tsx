@@ -10,6 +10,7 @@ type Message = {
   created_at: string;
   parent_id: number | null;
   is_announcement: boolean;
+  category: string;
 };
 
 export default function AdminGroupPage() {
@@ -116,6 +117,13 @@ export default function AdminGroupPage() {
                   ? "Reply"
                   : "Discussion"}
             </span>
+            {!item.is_announcement && (
+              <span>
+                {item.category === "drug_discovery"
+                  ? "Drug Discovery"
+                  : "Family & Community"}
+              </span>
+            )}
             <span>{item.approved ? "Approved" : "Pending"}</span>
           </div>
 

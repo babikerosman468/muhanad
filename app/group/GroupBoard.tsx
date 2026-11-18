@@ -9,6 +9,7 @@ type Message = {
   created_at: string;
   parent_id: number | null;
   is_announcement: boolean;
+  category: string;
 };
 
 const words = {
@@ -22,6 +23,9 @@ const words = {
     send: "Send message",
     sending: "Sending...",
     discussions: "Community discussions",
+    community: "Family & Community",
+    drugDiscovery: "Drug Discovery & Research",
+    chooseCategory: "Choose discussion area",
     announcements: "Community announcements",
     refresh: "Refresh",
     reply: "Reply",
@@ -41,6 +45,9 @@ const words = {
     send: "إرسال الرسالة",
     sending: "جارٍ الإرسال...",
     discussions: "نقاشات المجتمع",
+    community: "العائلة والمجتمع",
+    drugDiscovery: "اكتشاف الأدوية والبحوث",
+    chooseCategory: "اختر مجال النقاش",
     announcements: "إعلانات المجتمع",
     refresh: "تحديث",
     reply: "رد",
@@ -57,6 +64,8 @@ export default function GroupBoard() {
   const [language, setLanguage] = useState<"en" | "ar">("en");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedCategory, setSelectedCategory] =
+    useState<"community" | "drug_discovery">("community");
   const [replyTo, setReplyTo] = useState<number | null>(null);
   const [replyText, setReplyText] = useState("");
   const [status, setStatus] = useState("");
@@ -100,7 +109,8 @@ export default function GroupBoard() {
         body: JSON.stringify({
           name,
           message: text,
-          parentId
+          parentId,
+          category: parentId === null ? selectedCategory : undefined
         })
       });
 
@@ -134,77 +144,26 @@ export default function GroupBoard() {
     (item) => !item.is_announcement && item.parent_id === null
   );
 
-  function replies(id: number) {
-    return messages.filter((item) => item.parent_id === id);
-  }
+  function renderDiscussions(
+    category: "community" | "drug_discovery",
+    title: string
+  ) {
+    const items = discussions.filter(
+      (item) => (item.category || "community") === category
+    );
 
-  return (
-    <main className="group-page" dir={language === "ar" ? "rtl" : "ltr"}>
-      <header className="group-header">
-        <div className="group-language">
-          <button onClick={() => setLanguage("en")}>English</button>
-          <button onClick={() => setLanguage("ar")}>العربية</button>
-        </div>
-
-        <h1>{t.title}</h1>
-        <p>{t.subtitle}</p>
-        <span className="group-live">● {t.live}</span>
-      </header>
-
-      <section className="group-panel">
-        <h2>{t.join}</h2>
-
-        <form onSubmit={(e) => submit(e, message, null)}>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={t.name}
-            maxLength={80}
-            required
-          />
-
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder={t.write}
-            maxLength={2000}
-            required
-          />
-
-          <button disabled={loading}>
-            {loading ? t.sending : t.send}
-          </button>
-        </form>
-
-        <p className="group-note">{t.approval}</p>
-        {status && <p role="status">{status}</p>}
-      </section>
-
-      {announcements.length > 0 && (
-        <section className="group-panel">
-          <h2>📢 {t.announcements}</h2>
-
-          {announcements.map((item) => (
-            <article className="group-announcement" key={item.id}>
-              <strong>{item.name}</strong>
-              <p>{item.message}</p>
-              <small>{new Date(item.created_at).toLocaleString()}</small>
-            </article>
-          ))}
-        </section>
-      )}
-
+    return (
       <section className="group-panel">
         <div className="group-heading">
-          <h2>{t.discussions}</h2>
+          <h2>{title}</h2>
           <button className="group-refresh" onClick={loadMessages}>
             {t.refresh}
           </button>
         </div>
 
-        {discussions.length === 0 && <p>{t.empty}</p>}
+        {items.length === 0 && <p>{t.empty}</p>}
 
-        {discussions.map((item) => (
+        {items.map((item) => (
           <article className="group-message" key={item.id}>
             <strong>{item.name}</strong>
             <p className="group-text">{item.message}</p>
@@ -246,6 +205,87 @@ export default function GroupBoard() {
           </article>
         ))}
       </section>
+    );
+  }
+
+  function replies(id: number) {
+    return messages.filter((item) => item.parent_id === id);
+  }
+
+  return (
+    <main className="group-page" dir={language === "ar" ? "rtl" : "ltr"}>
+      <header className="group-header">
+        <div className="group-language">
+          <button onClick={() => setLanguage("en")}>English</button>
+          <button onClick={() => setLanguage("ar")}>العربية</button>
+        </div>
+
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
+        <span className="group-live">● {t.live}</span>
+      </header>
+
+      <section className="group-panel">
+        <h2>{t.join}</h2>
+
+        <form onSubmit={(e) => submit(e, message, null)}>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={t.name}
+            maxLength={80}
+            required
+          />
+
+          <label>
+            {t.chooseCategory}
+            <select
+              value={selectedCategory}
+              onChange={(e) =>
+                setSelectedCategory(
+                  e.target.value as "community" | "drug_discovery"
+                )
+              }
+            >
+              <option value="community">{t.community}</option>
+              <option value="drug_discovery">{t.drugDiscovery}</option>
+            </select>
+          </label>
+
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder={t.write}
+            maxLength={2000}
+            required
+          />
+
+          <button disabled={loading}>
+            {loading ? t.sending : t.send}
+          </button>
+        </form>
+
+        <p className="group-note">{t.approval}</p>
+        {status && <p role="status">{status}</p>}
+      </section>
+
+      {announcements.length > 0 && (
+        <section className="group-panel">
+          <h2>📢 {t.announcements}</h2>
+
+          {announcements.map((item) => (
+            <article className="group-announcement" key={item.id}>
+              <strong>{item.name}</strong>
+              <p>{item.message}</p>
+              <small>{new Date(item.created_at).toLocaleString()}</small>
+            </article>
+          ))}
+        </section>
+      )}
+
+      {renderDiscussions("community", t.community)}
+
+      {renderDiscussions("drug_discovery", t.drugDiscovery)}
 
       <footer className="group-footer">
         Muhanad Community · {t.footer}

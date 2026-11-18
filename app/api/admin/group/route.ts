@@ -26,7 +26,7 @@ export async function GET() {
 
     const messages = await sql`
       SELECT id, name, message, approved, created_at,
-             parent_id, is_announcement
+             parent_id, is_announcement, category
       FROM group_messages
       ORDER BY created_at DESC
       LIMIT 500

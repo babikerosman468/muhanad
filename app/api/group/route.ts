@@ -12,7 +12,7 @@ export async function GET() {
 
     const messages = await sql`
       SELECT id, name, message, created_at,
-             parent_id, is_announcement
+             parent_id, is_announcement, category
       FROM group_messages
       WHERE approved = TRUE
       ORDER BY created_at ASC
@@ -62,6 +62,18 @@ export async function POST(request: Request) {
         ? null
         : Number(body.parentId);
 
+    let category =
+      body.category === undefined
+        ? "community"
+        : String(body.category);
+
+    if (!["community", "drug_discovery"].includes(category)) {
+      return NextResponse.json(
+        { error: "Invalid discussion category" },
+        { status: 400 }
+      );
+    }
+
     if (!name || !message) {
       return NextResponse.json(
         { error: "Name and message are required" },
@@ -90,7 +102,7 @@ export async function POST(request: Request) {
 
     if (parentId !== null) {
       const parent = await sql`
-        SELECT id
+        SELECT id, category
         FROM group_messages
         WHERE id = ${parentId}
           AND approved = TRUE
@@ -105,13 +117,15 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
+
+      category = String(parent[0].category || "community");
     }
 
     await sql`
       INSERT INTO group_messages
-        (name, message, parent_id, approved, is_announcement)
+        (name, message, parent_id, approved, is_announcement, category)
       VALUES
-        (${name}, ${message}, ${parentId}, FALSE, FALSE)
+        (${name}, ${message}, ${parentId}, FALSE, FALSE, ${category})
     `;
 
     return NextResponse.json({
