@@ -243,3 +243,209 @@ footer {
     gap: 10px;
   }
 }
+
+/* MUHANAD LIVE GROUP */
+
+.group-page,
+.group-admin {
+  max-width: 850px;
+  margin: 25px auto;
+  padding: 18px;
+  font-family: Arial, sans-serif;
+  color: #263445;
+}
+
+.group-header {
+  position: relative;
+  text-align: center;
+  padding: 35px 20px;
+  background: #173b59;
+  color: white;
+  border-radius: 15px;
+}
+
+.group-header h1 {
+  font-size: clamp(27px, 6vw, 40px);
+}
+
+.group-live {
+  color: #9ff5b0;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.group-language {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.group-language button {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #ccd5df;
+}
+
+.group-panel,
+.group-admin-card {
+  background: white;
+  border: 1px solid #dce3eb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  overflow-wrap: anywhere;
+}
+
+.group-panel form,
+.group-admin-card form {
+  display: grid;
+  gap: 12px;
+}
+
+.group-panel input,
+.group-panel textarea,
+.group-panel form textarea,
+.group-admin-card textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccd5df;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 16px;
+}
+
+.group-panel textarea,
+.group-admin-card textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.group-panel form button,
+.group-admin-card form button {
+  padding: 13px;
+  border: 0;
+  border-radius: 7px;
+  background: #236b91;
+  color: white;
+  cursor: pointer;
+}
+
+.group-note {
+  color: #687789;
+  font-size: 13px;
+}
+
+.group-heading,
+.group-admin-row,
+.group-admin-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.group-refresh,
+.group-reply-button {
+  padding: 9px 13px;
+  cursor: pointer;
+}
+
+.group-message {
+  padding: 17px 0;
+  border-bottom: 1px solid #e5eaf0;
+}
+
+.group-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+
+.group-message small,
+.group-reply small,
+.group-announcement small {
+  color: #718096;
+}
+
+.group-announcement {
+  padding: 18px;
+  margin: 12px 0;
+  background: #fff8e7;
+  border: 1px solid #e9c76d;
+  border-left: 5px solid #b88a25;
+  border-radius: 8px;
+}
+
+.group-replies {
+  margin: 12px 0 12px 15px;
+  padding-left: 12px;
+  border-left: 3px solid #9bb8ce;
+}
+
+[dir="rtl"] .group-replies {
+  margin: 12px 15px 12px 0;
+  padding: 0 12px 0 0;
+  border-left: 0;
+  border-right: 3px solid #9bb8ce;
+}
+
+.group-reply {
+  padding: 12px;
+  margin: 8px 0;
+  background: #f3f7fa;
+  border-radius: 8px;
+}
+
+.group-reply-button {
+  border: 1px solid #cbd7e2;
+  background: white;
+  border-radius: 6px;
+}
+
+.group-footer {
+  text-align: center;
+  padding: 25px;
+  color: #778899;
+  font-size: 13px;
+}
+
+.group-admin-actions {
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+
+.group-approve,
+.group-delete {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.group-approve {
+  background: #187b50;
+}
+
+.group-delete {
+  background: #a83232;
+}
+
+@media(max-width:600px) {
+  .group-page,
+  .group-admin {
+    margin: 0;
+    padding: 10px;
+  }
+
+  .group-panel,
+  .group-admin-card {
+    padding: 15px;
+  }
+
+  .group-header {
+    padding: 28px 12px;
+  }
+}
