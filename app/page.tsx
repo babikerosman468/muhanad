@@ -84,7 +84,8 @@ export default function Home() {
           Medical documentation and an AI-assisted summary of Muhanad's
           medical history, for review by healthcare professionals.
         </p>
-        <p>
+      </section>
+              <p>
           <a href="/all.pdf" target="_blank" rel="noopener noreferrer">
             📄 Complete Medical Records (PDF) →
           </a>
@@ -94,7 +95,16 @@ export default function Home() {
             🧠 AI Medical Summary (PDF) →
           </a>
         </p>
-      </section>
+        <p>
+          <a href="/Muhanad_Arabic.pdf" target="_blank" rel="noopener noreferrer">
+            🇸🇩 Arabic Medical Report (PDF) →
+          </a>
+        </p>
+        <p>
+          <a href="/Muhanad_English.pdf" target="_blank" rel="noopener noreferrer">
+            🇬🇧 English Medical Report (PDF) →
+          </a>
+        </p>
 
       <section id="about" className="section">
         <h2>About</h2>
